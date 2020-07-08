@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello Vue.js</title>
+        <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+            <div id="app">
+                <h1>Hello {{ name }}</h1>
+                <h3>{{userInfo}}</h3>
+                <h3><a :href="url">My Homepage</a></h3>
+                <button type="button" @click="changeName">Change to Julia</button>
+                <br><br>
+                add Book: <input type="text" v-model="currentBook"/> <button type="button" @click="addBook">Add Book</button>
+                <br><br>
+                <div v-if="books.length > 0">
+                    Books:
+                    <ul>
+                        <li v-for="book in books" >{{ book }}</li>
+                    </ul>
+                </div>
+                <max></max>
+            </div>
+            <script>
+
+                Vue.component('max',{
+                    template: '<h1>Hello from Max Component</h1>'
+                });
+
+                new Vue({
+                    el:'#app',
+                    data: {
+                        name: 'Nosirsho',
+                        age:33,
+                        currentBook: 'Vuejs book',
+                        books:[],
+                        url: 'http://google.com'
+                    },
+                    methods:{
+                        changeName: function () {
+                            this.name = 'Julia';
+                        },
+                        addBook: function () {
+                            this.books.push(this.currentBook);
+                        }
+                    },
+                    computed:{
+                        userInfo: function () {
+                            return this.name + " " + this.age;
+                        }
+                    },
+                    watch:{
+                        name: function () {
+                            console.log(this.name);
+                        }
+                    }
+                });
+            </script>
+    </body>
+</html>
